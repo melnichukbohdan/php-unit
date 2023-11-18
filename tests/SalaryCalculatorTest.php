@@ -8,19 +8,34 @@ use PHPUnit\Framework\TestCase;
 
 class SalaryCalculatorTest extends TestCase
 {
-    public function testCalculate(): void
+
+    /**
+     * @dataProvider dataProvider
+     */
+    public function testCalculate(float $salary, float $expected): void
     {
         $salaryCalculator = new SalaryCalculator();
-        $result = $salaryCalculator->calculate(10);
+        $result = $salaryCalculator->calculate($salary);
 
-        self::assertEquals(8, $result);
+        self::assertEquals($expected, $result);
     }
 
-    public function testCalculateCase(): void
+    public static function dataProvider():array
     {
-        $salaryCalculator = new SalaryCalculator();
-        $result = $salaryCalculator->calculate(20);
-
-        self::assertEquals(16, $result);
+        return [
+            [
+                10,9
+            ],
+            [
+                20,18
+            ],
+            [
+                25.4,22.86
+            ],
+            [
+                45.45,40.91
+            ],
+        ];
     }
+
 }
